@@ -3,12 +3,12 @@ import { create } from 'zustand'
 import { PeliculaResponse } from "@/models/responses"
 
 interface PeliculaState {
-    selectPelicula: PeliculaResponse[],
-    setSelectPelicula: (term: PeliculaResponse[]) => void;
+    selectPelicula: PeliculaResponse | null,
+    setSelectPelicula: (term: PeliculaResponse) => void;
 }
 
 const usePeliculaStore = create<PeliculaState>((set) => ({
-    selectPelicula: [],
+    selectPelicula: null,
     setSelectPelicula: (term) => set({ selectPelicula: term })
 }));
 

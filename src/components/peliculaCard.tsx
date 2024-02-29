@@ -16,23 +16,7 @@ export const PeliculaCard: FC<PeliculaCardProps> = ({
 }) => {
     const isResponse = pelicula.Response === 'True'
 
-    const { imdbID, setImdbID } = usebuscarStore()
-
-    const { selectPelicula, setSelectPelicula } = usePeliculaState()
-
-    const clickPelicula = (id: string) => {
-
-        setImdbID(id)
-
-        const request: BuscarRequest = {
-            i: id
-        }
-
-        getPeliculaImdbID(request).then(result => {
-            console.log("🚀 ~ getPelicula ~ result:", result)
-            if (result) setSelectPelicula(result)
-        })
-    };
+    const { setImdbID } = usebuscarStore()
 
     return (
         <div>
@@ -40,14 +24,14 @@ export const PeliculaCard: FC<PeliculaCardProps> = ({
             <div className="gap-2 grid grid-cols-2 sm:grid-cols-5">
                 {isResponse && (
                     pelicula.Search.map((item, index) => (
-                        <Card className="py-4" key={index} isPressable onPress={() => clickPelicula(item.imdbID)}>
+                        <Card className="py-4" key={index} isPressable onPress={() => setImdbID(item.imdbID)} >
                             <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
                                 <p className="text-tiny uppercase font-bold">{item.Type}</p>
                                 <small className="text-default-500">{item.Rated}</small>
                                 <h4 className="font-bold text-large">{item.Title}</h4>
                             </CardHeader>
                             <CardBody className="overflow-visible py-2">
-                                <Popover showArrow placement="bottom">
+                                <Popover showArrow placement="bottom" backdrop="opaque">
                                     <PopoverTrigger>
                                         <Image
                                             isZoomed
@@ -56,11 +40,11 @@ export const PeliculaCard: FC<PeliculaCardProps> = ({
                                             src={item.Poster}
                                             width={270}
                                             height={500}
-                                            onClick={() => clickPelicula(item.imdbID)}
+                                            onClick={() => setImdbID(item.imdbID)}
                                         />
                                     </PopoverTrigger>
                                     <PopoverContent className="p-1">
-                                        <DetalleCard selectPelicula={selectPelicula[0]} />
+                                        <DetalleCard />
                                     </PopoverContent>
                                 </Popover>
                             </CardBody>
@@ -77,4 +61,3 @@ export const PeliculaCard: FC<PeliculaCardProps> = ({
         </div>
     );
 }
-

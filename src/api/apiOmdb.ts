@@ -29,9 +29,9 @@ export const getPeliculaImdbID = async (request: BuscarRequest) => {
 
     request.apikey = apiKey
 
-    const response = await axios.get<PeliculaResponse[]>(url, { params: request })
+    const response = await axios.get<PeliculaResponse>(url, { params: request })
 
     if (response == null) throw new Error('OMDB_URL o OMDB_API_KEY fallo en la consulta.');
 
-    return response.status === 200 ? response.data : []
+    return response.status === 200 ? response.data : null
 }

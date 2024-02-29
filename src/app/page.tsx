@@ -1,13 +1,12 @@
 "use client";
 import React from "react";
-import { Input, Kbd } from '@nextui-org/react'
+import { Input, Kbd, Pagination } from '@nextui-org/react'
 import { getPelicula } from '@/api/apiOmdb'
 import { BuscarRequest } from "@/models/request"
 import usebuscarStore from '@/store/buscarStore'
 import usepeliculaStore from '@/store/buscarPeliculaStore.'
 import { SearchIcon } from "@/components/icons"
 import { PeliculaCard } from "@/components/peliculaCard"
-import { Pagination } from "@nextui-org/react";
 
 export default function Home() {
 

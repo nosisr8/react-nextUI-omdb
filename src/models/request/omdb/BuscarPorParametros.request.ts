@@ -9,6 +9,7 @@ interface BuscarRequest {
   callback?: string; // JSONP callback name (Optional).
   v?: number; // API version (Optional, reserved for future use).
   apikey?: string;
+  plot?: string;
 }
 
 export default BuscarRequest;
