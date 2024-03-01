@@ -13,6 +13,8 @@ interface BuscarState {
     setImdbID: (term: string) => void;
     cargando: boolean;
     setCargando: (term: boolean) => void;
+    cargandoDetalle: boolean;
+    setCargandoDetalle: (term: boolean) => void;
 }
 
 const useBuscarStore = create<BuscarState>((set) => ({
@@ -28,6 +30,8 @@ const useBuscarStore = create<BuscarState>((set) => ({
     setImdbID: (term) => set({ imdbID: term }),
     cargando: false,
     setCargando: (term) => set({ cargando: term }),
+    cargandoDetalle: false,
+    setCargandoDetalle: (term) => set({ cargandoDetalle: term }),
 }));
 
 export default useBuscarStore;
