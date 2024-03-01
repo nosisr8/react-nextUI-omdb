@@ -11,6 +11,8 @@ interface BuscarState {
     setPaginacion: (term: number) => void;
     imdbID: string;
     setImdbID: (term: string) => void;
+    cargando: boolean;
+    setCargando: (term: boolean) => void;
 }
 
 const useBuscarStore = create<BuscarState>((set) => ({
@@ -24,6 +26,8 @@ const useBuscarStore = create<BuscarState>((set) => ({
     setPaginacion: (term) => set({ paginacion: term }),
     imdbID: '',
     setImdbID: (term) => set({ imdbID: term }),
+    cargando: false,
+    setCargando: (term) => set({ cargando: term }),
 }));
 
 export default useBuscarStore;

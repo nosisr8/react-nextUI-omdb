@@ -1,20 +1,32 @@
 "use client";
 import React from "react";
-import { Input, Kbd, Pagination } from '@nextui-org/react'
+import { Input, Kbd, Pagination, Spinner } from '@nextui-org/react'
 import { getPelicula } from '@/api/apiOmdb'
 import { BuscarRequest } from "@/models/request"
 import usebuscarStore from '@/store/buscarStore'
-import usepeliculaStore from '@/store/buscarPeliculaStore.'
+import usepeliculaStore from '@/store/buscarPeliculaStore'
 import { SearchIcon } from "@/components/icons"
 import { PeliculaCard } from "@/components/peliculaCard"
 
 export default function Home() {
 
-  const { inputBuscar, setInputBuscar, inputYear, setInputYear, page, setPage, paginacion, setPaginacion } = usebuscarStore()
+  const {
+    inputBuscar,
+    setInputBuscar,
+    inputYear,
+    setInputYear,
+    page,
+    setPage,
+    paginacion,
+    setPaginacion,
+    cargando,
+    setCargando,
+  } = usebuscarStore()
 
   const { peliculaBuscar, setPeliculaBuscar } = usepeliculaStore()
 
-  const handleSearch = (pageNumber: number = page) => {
+  const handleSearch = async (pageNumber: number = page) => {
+    setCargando(true)
 
     const request: BuscarRequest = {
       s: inputBuscar,
@@ -22,17 +34,19 @@ export default function Home() {
       page: pageNumber
     }
 
-    getPelicula(request).then(result => {
-      if (result) {
-        let totalPage = result.totalResults != '' ? Math.ceil(parseFloat(result.totalResults) / 10) : 0
+    const result = await getPelicula(request)
 
-        setPaginacion(totalPage)
+    setCargando(false)
 
-        if (result.Response === 'False') setPage(1)
+    if (result) {
+      let totalPage = result.totalResults != '' ? Math.ceil(Number(result.totalResults) / 10) : 0
 
-        setPeliculaBuscar(result)
-      }
-    })
+      setPaginacion(totalPage)
+
+      if (result.Response === 'False') setPage(1)
+
+      setPeliculaBuscar(result)
+    }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -46,13 +60,13 @@ export default function Home() {
     handleSearch(pageNumber)
   }
 
-  const isResponseNull = peliculaBuscar.Response != ''
+  const isResponseNull = peliculaBuscar.Response !== ''
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <div className="inline-block text-center justify-center">
 
-        <h1>Buscar Peliculas</h1>
+        <h1 className="font-bold text-inherit m-4">Buscar Peliculas</h1>
         <div className="gap-2 grid grid-cols-2 sm:grid-cols-2">
           <Input
             aria-label="Buscar Pelicula"
@@ -96,6 +110,8 @@ export default function Home() {
           />
 
         </div>
+
+        {cargando && (<Spinner label="Buscando en OMDb..." color="warning" />)}
 
         {isResponseNull && (
           <div>

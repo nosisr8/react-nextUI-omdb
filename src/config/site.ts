@@ -16,6 +16,6 @@ export const siteConfig = {
 		}
 	],
 	links: {
-		github: "https://github.com/nosisr8"
+		github: "https://github.com/nosisr8/react-nextUI-omdb"
 	}
 };
