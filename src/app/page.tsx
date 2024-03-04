@@ -117,7 +117,7 @@ export default function Home() {
           <div>
             <PeliculaCard pelicula={peliculaBuscar} />
 
-            {paginacion > 0 && (<Pagination onChange={changePaginacion} total={paginacion} initialPage={page} />)}
+            {paginacion > 0 && (<Pagination className="m-4" onChange={changePaginacion} total={paginacion} initialPage={page} />)}
           </div>
         )}
       </div>
