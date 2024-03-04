@@ -22,8 +22,8 @@ export const PeliculaCard: FC<PeliculaCardProps> = ({
                 {isResponse && (
                     pelicula.Search.map((item, index) => (
                         <Card className="py-4" key={index} isPressable onMouseEnter={() => setImdbID(item.imdbID)}>
-                            <Link href="/detallePelicula">
-                                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start text-black">
+                            <Link href="/detallePelicula" color="foreground">
+                                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
                                     <p className="text-tiny uppercase font-bold">{item.Type}</p>
                                     <small className="text-default-500">{item.Rated}</small>
                                     <h4 className="font-bold text-large">{item.Title}</h4>

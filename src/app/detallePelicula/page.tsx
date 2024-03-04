@@ -29,7 +29,7 @@ export default function DetallePelicula() {
     return (
         <div>
             <div>
-                <h1 className="text-default-900">Detalles de la pelicula</h1>
+                <h1 className="font-bold text-inherit m-4">Detalles de la pelicula</h1>
             </div>
             {cargandoDetalle ? (
                 <Spinner label="Cargando detalle en OMDb..." color="warning" />
